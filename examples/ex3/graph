@@ -1,0 +1,21 @@
+digraph {
+	0 [label=a]
+	1 [label=f]
+	2 [label=c]
+	3 [label=b]
+	4 [label=d]
+	5 [label=c]
+	6 [label=g]
+	7 [label=d]
+	8 [label=e]
+	0 -> 2
+	1 -> 6
+	2 -> 3
+	3 -> 4
+	4 -> 5
+	4 -> 6
+	5 -> 7
+	5 -> 8
+	6 -> 7
+	6 -> 8
+}

@@ -1,0 +1,7 @@
+(a) x := w+y+z
+(b) w := x+y
+(c) x := x+v+z
+(d) z := x+y+w
+(e) v := m+x+y
+(f) m := m+y
+(g) y := z+y+v
