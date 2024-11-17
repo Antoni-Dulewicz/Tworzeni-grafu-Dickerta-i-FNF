@@ -138,17 +138,14 @@ def compute_FNF(A : List,w : str ,transactions: dict, D : List, I : List) -> Lis
             
             #jesli litera stosu nie jest w warstwie fnf 
             #zdejmowanie odpowiednich znakow specjalnych na stosach
-            # jesli litera stosu jest niezalezna od ktorejs z liter z warstwy fnf czyli 
-            #dla przynajmniej jednego f: (l,f) nalezy do I to nie zdejmujemy znaku
+            #dla kazdej litery stosu zdejmujemy z niej znak specjalny tyle razy ile razy  
+            #w D wystepuja pary (l,f) gdzie l to litera stosu a f to litera z warstwy fnf
             else:
                 #dla kazdej litery w warstwie fnf 
-                is_independent = False
                 for letter_f in fnf_layer:
-                    #jesli (l,f) nalezy do I
-                    if (letter,letter_f) in I or (letter_f,letter) in I:
-                        is_independent = True
-                    
-                if not is_independent: stack.pop()
+                    #jesli (l,f) nalezy do D
+                    if (letter,letter_f) in D or (letter_f,letter) in D:
+                        stack.pop()
 
     return fnf
 
@@ -235,9 +232,19 @@ def draw_graph(G: List[List[int]], vertices: List[List[tuple]], example: str):
 
     dot.render(os.path.join("examples",example,"graph"), view=True)
 
+def print_FNF(fnf):
+    output = ""
+    for layer in fnf:
+        string = ""
+        for char in layer:
+            string += char
+        output += "(" + string + ")"
+    
+    return output
+        
 
-
-examples = ["ex1","ex2","ex3"]
+examples = ["ex1","ex2","ex3","ex4"]
+# examples = ["ex3"]
 for example in examples:
     print(f"Example: {example}")
     A,w,transactions = read_data_from_files(example)
@@ -245,6 +252,6 @@ for example in examples:
     print(f"D: {D}")
     print(f"I: {I}")
     fnf = compute_FNF(A,w,transactions,D,I)
-    print(f"FNF: {fnf}")
+    print(print_FNF(fnf))
     G,vertices = create_dickert_graph(I,fnf)
     draw_graph(G,vertices,example)
